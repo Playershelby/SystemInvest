@@ -1,0 +1,461 @@
+/* ===== SETTINGS ACCOUNT - Minimal & Elegant ===== */
+
+/* Container Principal */
+.container_geral {
+    padding: 40px 20px;
+    margin: 0 auto;
+    max-width: 1200px;
+    min-height: 100vh;
+}
+
+.container_geral h1 {
+    text-align: center;
+    font-size: 16pt;
+    font-weight: bold;
+    color: #c0c0c0;
+    letter-spacing: 0.8rem;
+    margin-bottom: 40px;
+    margin-top: 30px;
+}
+
+/* Card de Perfil */
+.container_perfil {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+    padding: 30px;
+    margin: 25px auto;
+    max-width: 900px;
+    background: rgba(50, 50, 50, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+}
+
+/* Imagem de Perfil */
+#perfil_img {
+    width: 180px;
+    height: 180px;
+    margin: 25px 0px;
+    border-radius: 10rem;
+    object-fit: cover;
+    border: 3px solid rgba(192, 192, 192, 0.3);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+}
+
+#perfil_img:hover {
+    transform: scale(1.05);
+    border-color: #c0c0c0;
+    box-shadow: 0 15px 50px rgba(192, 192, 192, 0.2);
+}
+
+/* Dados do Usuário */
+.mydados {
+    flex: 1;
+    padding: 20px;
+    color: #fff;
+    margin: 20px 0px;
+}
+
+.mydados h2 {
+    font-size: 14pt;
+    font-weight: 400;
+    color: #c0c0c0;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mydados table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.mydados tr {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.mydados tr td {
+    padding: 12px 0;
+    font-size: 1rem;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.8);
+    vertical-align: top;
+}
+
+.mydados tr td:first-child {
+    color: #c0c0c0;
+    font-weight: 400;
+    width: 40%;
+}
+
+.mydados input {
+    width: 60%;
+    padding: 12px 30px;
+    margin: 15px 0px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 2rem;
+    background-color: #323232;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    color: #fff;
+    font-size: 12pt;
+    font-weight: 400;
+    transition: all 0.3s ease;
+}
+
+/* Botões de Ação */
+.btn-delete,
+.btn-edit {
+    padding: 12px 30px;
+    margin: 15px 0px;
+    min-width: 160px;
+    background: linear-gradient(135deg, rgba(192, 192, 192, 0.2) 0%, #323232 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+    color: #fff;
+    font-size: 12pt;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.btn-delete:hover,
+.btn-edit:hover {
+    background: linear-gradient(135deg, #c0c0c0 0%, #808080 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(192, 192, 192, 0.2);
+    color: #000;
+}
+
+.btn-delete a,
+.btn-edit a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.btn-delete {
+    background: linear-gradient(135deg, rgba(180, 60, 60, 0.3) 0%, #323232 100%);
+}
+
+.btn-delete:hover {
+    background: linear-gradient(135deg, #c45050 0%, #8b3030 100%);
+    color: #fff;
+}
+
+/* Container de Botões */
+.buttons-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+/* ===== Modal de Upload (Glassmorphism) ===== */
+.container_documents {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(30, 30, 30, 0.9);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+    max-width: 480px;
+    width: 90%;
+    text-align: center;
+    z-index: 1000;
+}
+
+.container_documents h2 {
+    color: #c0c0c0;
+    font-size: 12pt;
+    font-weight: 300;
+    margin-bottom: 30px;
+    letter-spacing: 0.8rem;
+}
+
+#btn_close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 12pt;
+    color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+#btn_close:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Input de Arquivo */
+.file-input-container {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.file-input {
+    position: absolute;
+    left: -9999px;
+    opacity: 0;
+}
+
+.file-label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 16px 35px;
+    background: linear-gradient(135deg, rgba(192, 192, 192, 0.2) 0%, #323232 100%);
+    color: #fff;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 400;
+    font-size: 12pt;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.file-label:hover {
+    background: linear-gradient(135deg, #c0c0c0 0%, #808080 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(192, 192, 192, 0.2);
+    color: #000;
+}
+
+.file-label:active {
+    transform: translateY(0);
+}
+
+.file-icon {
+    font-size: 12pt;
+}
+
+/* Área de Preview */
+.file-info {
+    margin-top: 20px;
+    padding: 25px;
+    background: rgba(50, 50, 50, 0.5);
+    border-radius: 16px;
+    border: 2px dashed rgba(192, 192, 192, 0.2);
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.file-info.empty {
+    color: rgba(255, 255, 255, 0.4);
+    font-style: italic;
+    font-size: 12pt;
+}
+
+.file-info.has-file {
+    background: rgba(50, 80, 50, 0.3);
+    border-color: rgba(100, 180, 100, 0.4);
+}
+
+.file-name {
+    font-weight: 500;
+    color: #90c090;
+    margin-bottom: 8px;
+    word-break: break-word;
+    text-align: center;
+}
+
+.file-size {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 12pt;
+}
+
+.file-preview {
+    margin-top: 15px;
+    max-width: 100%;
+    max-height: 180px;
+    border-radius: 12px;
+    display: none;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.file-preview.visible {
+    display: block;
+}
+
+.supported-formats {
+    margin-top: 20px;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 12pt;
+}
+
+/* Botão Submit */
+.btn-submit {
+    padding: 14px 40px;
+    margin-top: 25px;
+    min-width: 160px;
+    background: linear-gradient(135deg, rgba(192, 192, 192, 0.2) 0%, #323232 100%);
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    color: #fff;
+    font-size: 12pt;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-submit:hover {
+    background: linear-gradient(135deg, #c0c0c0 0%, #808080 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(192, 192, 192, 0.2);
+    color: #000;
+}
+
+.btn-submit:active {
+    transform: translateY(0);
+}
+
+/* Botão Voltar */
+.btn-back {
+    position: fixed;
+    top: 1px;
+    left: 4px;
+    padding: 12px 25px;
+    background: rgba(50, 50, 50, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 100;
+}
+
+.btn-back a {
+    text-decoration: none;
+    color: #c0c0c0;
+    font-size: 12pt;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-back:hover {
+    background: rgba(192, 192, 192, 0.2);
+    transform: translateX(-5px);
+}
+
+.btn-back:hover a {
+    color: #fff;
+}
+
+/* Animações */
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    50% {
+        transform: scale(1.02);
+        box-shadow: 0 8px 30px rgba(192, 192, 192, 0.2);
+    }
+}
+
+.file-label.uploading {
+    animation: pulse 1.5s ease-in-out infinite;
+    background: linear-gradient(135deg, #50a050 0%, #408040 100%);
+    pointer-events: none;
+}
+
+/* Overlay do Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    z-index: 999;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .container_perfil {
+        flex-direction: column;
+        text-align: center;
+        padding: 25px;
+    }
+
+    #perfil_img {
+        width: 150px;
+        height: 150px;
+    }
+
+    .mydados {
+        padding: 15px 0;
+    }
+
+    .mydados tr td {
+        display: block;
+        padding: 8px 0;
+    }
+
+    .mydados tr td:first-child {
+        width: 100%;
+        padding-bottom: 4px;
+    }
+
+    .buttons-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn-delete,
+    .btn-edit {
+        width: 100%;
+        max-width: 250px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container_geral {
+        padding: 20px 15px;
+    }
+
+    .container_geral h1 {
+        font-size: 1.4rem;
+    }
+
+    .container_documents {
+        padding: 25px 20px;
+    }
+
+    .file-label {
+        padding: 14px 25px;
+        font-size: 0.9rem;
+    }
+
+    #perfil_img {
+        width: 120px;
+        height: 120px;
+    }
+}

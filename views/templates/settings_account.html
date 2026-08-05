@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}Configurações da Conta{% endblock %}
+
+{% block head %}
+{{super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='settings_account.css') }}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+{% endblock head %}
+
+{% block content %}
+{% block body %}
+<div class="container_geral">
+    <h1>Configurações da Conta</h1>
+    <div class="container_perfil">
+        <div class="mydados">
+            <h2>Seus Dados</h2>
+            <tr>
+                <td>Nome de usuario: {{user.username}}<br></td>
+                <td>Nickname: {{user.nick}}<br></td>
+                <td>Email: {{ user.email }}<br></td>
+                <td>CPF: {{ user.cpf }}<br></td>
+                <td>Data de Nascimento: {{ user.data_nascimento}}<br></td>
+                <!--INPUT PARA MUDAR O NICKNAME-->
+                <td><input id="inNickname" type="text" placeholder="Insira o Nickname"></td>
+                <td><button id="btn-save-nickname" class="btn-edit">Salvar</button></td>
+                <!--FIM DO INPUT PARA MUDAR O NICKNAME-->
+                {% if user.profile_pic %}
+                <td><a href="{{ url_for('user.user_documents', filename=user.profile_pic) }}">
+                        <img id="perfil_img" src="{{ url_for('user.user_documents', filename=user.profile_pic) }}"
+                            alt="foto_perdfil">
+                    </a></td>
+                {% else %}
+                <td><img id="perfil_img" src="{{ url_for('static', filename='img/Perfil.png') }}" alt="foto_perdfil">
+                </td>
+                {% endif %}
+                <td>
+                    <button type="button" class="btn-delete" id="btn-delete-account">Deletar Conta</button>
+                </td>
+
+                <td><button id="btn_upload" class="btn-edit">Upload</button></td>
+                <td></td>
+            </tr><br>
+        </div>
+
+        <div id="container_documents" class="container_documents" hidden>
+            <h1>📁 Seletor de Arquivos Personalizado</h1>
+            <button id="btn_close"><i class="bi bi-x-circle"></i></button>
+            <div class="file-input-container" method="POST" enctype="multipart/form-data">
+                <form method="POST" action="/user/upload_profile_pic" enctype="multipart/form-data">
+                    <input type="file" name="profile_pic" id="fileInput" class="file-input" accept="image/*">
+                    <label for="fileInput" class="file-label">
+                        <span class="file-icon">📂</span>
+                        Escolher Arquivo
+                    </label>
+                    <div class="file-info empty" id="fileInfo">
+                        Nenhum arquivo selecionado
+                    </div>
+                    <img id="filePreview" class="file-preview" alt="Pré-visualização do arquivo selecionado"
+                        src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/fe6712a8-7568-41ea-b0ed-7d06546206ee.png">
+                    <p class="supported-formats">
+                        Formatos suportados: Imagens, PDF, Word, Texto
+                    </p>
+                    <input type="submit" class="btn-submit" value="Enviar" id="btn_submit">
+                </form>
+            </div>
+        </div>
+        <button id="btn-back" class="btn-back">
+            <i class="bi bi-arrow-left"></i> Voltar
+        </button>
+        {% endblock body %}
+        {% endblock content %}
+
+        {% block script %}
+        <script src="{{ url_for('static', filename='Script/Settings.js') }}"></script>
+        {% endblock script %}

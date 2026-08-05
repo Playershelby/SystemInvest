@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block titule %}Esqueci minha senha{% endblock %}
+
+{% block head %}
+{{super() }}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar Senha</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='StyleResetSenha.css') }}">
+</head>
+{%endblock head %}
+
+{% block content %}
+
+<body>
+    <div class="card">
+        <h2>Esqueceu a senha?</h2>
+        <p>Informe seu e-mail e enviaremos um link para você redefinir sua senha.</p>
+        <form action="/esqueceu-senha" method="POST">
+            <div class="form-group">
+                <label for="email">E-mail cadastrado</label>
+                <input type="email" id="email" name="email" placeholder="exemplo@email.com" required>
+            </div>
+            <button type="submit" formaction="{{ url_for('user.esqueceu_senha') }}">Enviar link de recuperação</button>
+        </form>
+        <div class="footer-links">
+            <a href="/auth/login">Voltar para o login</a>
+        </div>
+    </div>
+</body>
+
+{% endblock content %}

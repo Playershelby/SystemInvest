@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    {% block head %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='Stylebase.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="{{ url_for('static', filename='img/LogoGO.png') }}" type="image/png">
+    {% endblock %}
+</head>
+
+<body>
+    <!-- Botão global de alternar tema (modo escuro/claro) -->
+    <!-- From Uiverse.io by Madflows --> 
+    <div class="toggle-switch">
+    <label class="switch-label">
+        <input type="checkbox" class="checkbox">
+        <span class="slider"></span>
+    </label>
+    </div>  
+
+    {% block flash_messages %}
+    <!--Mensagens Flash-->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="flash-container">
+        <a class="close-flash" href="javascript:void(0)" onclick="closeFlash(this)">×</a>
+        <ul class="flashes">
+            {% for category, message in messages %}
+            <li class="flash-message {{ category }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    {% endwith %}
+    {% endblock %}
+
+    {% block content %}
+    <header>
+        <a href="/">Home</a>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('user.dashboard') }}">
+                Saldo: R$ {{ current_user.balance|round(2) }}
+            </a>
+        </li>
+    </header>
+    {% endblock %}
+
+    <!-- Toast Container (SPA Realtime Notifications) -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- Global Page Loader -->
+    <div id="page-loader" class="page-loader hidden" aria-hidden="true">
+        <div class="loader">
+            <div class="square" id="sq1"></div>
+            <div class="square" id="sq2"></div>
+            <div class="square" id="sq3"></div>
+            <div class="square" id="sq4"></div>
+            <div class="square" id="sq5"></div>
+            <div class="square" id="sq6"></div>
+            <div class="square" id="sq7"></div>
+            <div class="square" id="sq8"></div>
+            <div class="square" id="sq9"></div>
+        </div>
+    </div>
+
+    <!-- Info e contatos-->
+    <!-- From Uiverse.io by 20essentials --> 
+    <aside class="menu-tooltip">
+    <input type="checkbox" id="toggle" />
+    <label for="toggle" class="toggle">➕</label>
+    <li style="--i: 0" class="circle-box">
+        <a href="https://devff.netlify.app" class="anchor"><i class="bi bi-browser-safari"></i></a>
+    </li>
+    <li style="--i: 1" class="circle-box">
+        <a href="https://www.linkedin.com/in/fernando-junior-ff/" class="anchor"><i class="bi bi-linkedin"></i></a>
+    </li>
+    <li style="--i: 2" class="circle-box">
+        <a href="https://github.com/Playershelby" class="anchor"><i class="bi bi-github"></i></a>
+    </li>
+    <li style="--i: 3" class="circle-box">
+        <a href="#" class="anchor"></a>
+    </li>
+    <li style="--i: 4" class="circle-box">
+        <a href="#" class="anchor"></a>
+    </li>
+    <li style="--i: 5" class="circle-box">
+        <a href="#" class="anchor"></a>
+    </li>
+    <li style="--i: 6" class="circle-box">
+        <a href="#" class="anchor"></a>
+    </li>
+    <li style="--i: 7" class="circle-box">
+        <a href="#" class="anchor"></a>
+    </li>
+    </aside>
+
+
+    <script src="{{ url_for('static', filename='Script/Common.js') }}"></script>
+    <script src="{{ url_for('static', filename='Script/Auth.js') }}"></script>
+    <script src="{{ url_for('static', filename='Script/ThemeToggle.js') }}"></script>
+    {% block script %}{% endblock %}
+</body>
+
+
+</html>

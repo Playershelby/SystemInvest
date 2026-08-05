@@ -1,0 +1,89 @@
+:root{
+    --primary-color: #1877f2;
+    --background-color: rgba(55, 55, 55, 0.3);
+    --text-color: #fff;
+    --subtext-color: #606770;
+    --border-color: #c2c2c2;
+    --input-background: rgba(255, 255, 255, 0.3);
+}
+
+.card {
+     background: var(--background-color);
+     backdrop-filter: blur(10px);
+     padding: 20px;
+     margin: auto;
+     margin-top: calc(100vh / 2);
+     justify-content: center;
+     border-radius: 2rem;
+     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+     width: 100%;
+     max-width: 720px;
+ }
+
+ h2 {
+     margin-bottom: 1rem;
+     color: var(--text-color);
+     text-align: center;
+     font-size: 28pt;
+ }
+
+ p {
+     font-size: 12.5pt;
+     color: var(--subtext-color);
+     margin-bottom: 1.5rem;
+     text-align: center;
+ }
+
+ .form-group {
+     margin-bottom: 1rem;
+     margin-top: 1rem;
+ }
+
+ label {
+     display: block;
+     margin-bottom: 0.8rem;
+     font-weight: 600;
+     font-size: 14pt;
+     color: var(--text-color);
+ }
+
+ input[type="email"] {
+     width: 100%;
+     padding: 1rem;
+     border: 1px solid var(--border-color);
+     border-radius: 2rem;
+     box-sizing: border-box;
+     font-size: 12pt;
+ }
+
+ button {
+     width: 100%;
+     padding: 1rem;
+     background-color: var(--primary-color);
+     border: none;
+     border-radius: 2rem;
+     color: var(--text-color);
+     font-size: 12pt;
+     font-weight: bold;
+     cursor: pointer;
+     transition: background-color 0.2s;
+ }
+
+ button:hover {
+     background-color: var(--primary-color);
+ }
+
+ .footer-links {
+     margin-top: 1.5rem;
+     text-align: center;
+ }
+
+ .footer-links a {
+     color: var(--text-color);
+     text-decoration: none;
+     font-size: 12pt;
+ }
+
+ .footer-links a:hover {
+     text-decoration: underline;
+ }

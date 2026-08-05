@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Configurações{% endblock title %}
+
+
+{% block head %}
+{{super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='StyleSettings.css') }}">
+{% endblock head %}
+
+{% block content %}
+{% block body %}
+
+<body data-is-admin="{{ 'true' if is_admin else 'false' }}">
+    <div class="container_geral">
+        <h1>Página de Configurações</h1>
+        <div class="listConfig">
+            <ul>
+                <li><a href="/user/settings/account"> Configurações da conta</a></li>
+                <li><a href="/user/settings/pagamentos"> Configurações de Pagamento</a></li>
+            </ul>
+        </div>
+        <!-- pagamentos.html (ou qualquer outro template) -->
+        <button id="btn-back" class="btn-back"><i class="bi bi-arrow-left"></i> Voltar</button>
+        <p>Gerencie suas configurações aqui</p>
+    </div>
+
+    {% block script %}
+        <script src="{{ url_for('static', filename='Script/Settings.js') }}"></script>
+    {% endblock script %}
+</body>
+{% endblock body %}
+{% endblock content %}

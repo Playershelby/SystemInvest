@@ -1,0 +1,510 @@
+{% extends "base.html" %}
+{% block titule %}User Dashboard{% endblock %}
+
+{% block head %}
+{{super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='StyleDash.css') }}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+{% endblock head %}
+
+{% block content %}
+{% block body %}
+
+<head>
+    <div class="container_dash">
+        <div class="nav-bar">
+            <div class="contenerInfo">
+                <div class="perfil">
+                    {% if user.profile_pic %}
+                    <img src="{{ url_for('user.user_documents', filename=user.profile_pic) }}" alt="img">
+                    {% else %}
+                    <img src="{{ url_for('static', filename='img/Perfil.png') }}" alt="img">
+                    {% endif %}
+                </div>
+                <div class="user-meta">
+                    <p id="PerfilName">{{ user.username }}</p>
+                    <i id="icon_down"
+                        class="bi bi-caret-down-square cursor-pointer transition-colors hover:text-white"></i>
+                </div>
+            </div>
+
+            <!-- Area Direita da Navbar -->
+            <div class="navbar-actions">
+                <!-- Carteira com saldo + botão de saque -->
+                <div class="saldo">
+                    <a href="/user/settings/pagamentos" class="no-decoration saldo-link">
+                        <i class="fas fa-wallet"></i>
+                        <span>R$ {{ (user.balance or 0) | round(2) }}</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Modal de Saque -->
+            <div id="modal-saque" class="modal-saque hidden">
+                <div id="modal-saque-backdrop" class="modal-saque-backdrop"></div>
+                <div class="modal-saque-wrapper">
+                    <div id="modal-saque-content" class="modal-saque-content">
+                        <h3 class="text-xl font-bold text-white mb-4"><i class="fas fa-wallet mr-2"></i>Solicitar Saque</h3>
+
+                        <form id="form-saque-carteira" class="space-y-4">
+                            <div>
+                                <label for="saque-valor" class="block text-sm text-white/80 mb-1">Valor a sacar (R$)</label>
+                                <input id="saque-valor" name="valor_saque" type="text" placeholder="Ex: 150,00"
+                                    class="w-full px-4 py-2 rounded-lg bg-black/30 border border-white/20 text-white focus:outline-none">
+                            </div>
+
+                            <div>
+                                <label for="saque-agencia" class="block text-sm text-white/80 mb-1">Agência</label>
+                                <input id="saque-agencia" name="agencia" type="text" placeholder="Ex: 0001"
+                                    class="w-full px-4 py-2 rounded-lg bg-black/30 border border-white/20 text-white focus:outline-none">
+                            </div>
+
+                            <div>
+                                <label for="saque-conta" class="block text-sm text-white/80 mb-1">Número da conta</label>
+                                <input id="saque-conta" name="conta" type="text" placeholder="Ex: 12345-6"
+                                    class="w-full px-4 py-2 rounded-lg bg-black/30 border border-white/20 text-white focus:outline-none">
+                            </div>
+
+                            <div class="text-center text-white/60 text-xs font-bold uppercase tracking-wider">ou</div>
+
+                            <div>
+                                <label for="saque-pix" class="block text-sm text-white/80 mb-1">Chave PIX</label>
+                                <input id="saque-pix" name="chave_pix" type="text" placeholder="CPF, e-mail, telefone ou chave aleatória"
+                                    class="w-full px-4 py-2 rounded-lg bg-black/30 border border-white/20 text-white focus:outline-none">
+                            </div>
+
+                            <div class="flex gap-3 pt-2">
+                                <button type="button" id="btn-cancelar-saque" class="btn-recusar w-1/2">Cancelar</button>
+                                <button type="submit" id="btn-confirmar-saque" class="btn-aceitar w-1/2">Confirmar Saque</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="links-nav" hidden>
+                <a href="/user/account">Minha Conta</a><br>
+                <a href="/user/settings">Configurações</a><br>
+                <a href="/auth/logout">Finalizar sessão</a>
+            </div>
+        </div>
+    </div>
+</head>
+<main>
+    <!--Banner-ads-->
+    <div class="liquid-glass BanneerAnuncio mt-6 mb-8" style="padding: 0;">
+        <div class="bannerSlide">
+            <img src="{{ url_for('static', filename='img/banner_aviao.png') }}" alt="banner-ads" class="w-full h-full object-cover">
+            <img src="{{ url_for('static', filename='img/banner_aviao2.jpg') }}" alt="banner-ads" class="w-full h-full object-cover">
+            <img src="{{ url_for('static', filename='img/banner.png') }}" alt="banner-ads" class="w-full h-full object-cover">
+        </div>
+    </div>
+
+    <!-- Botão Fixo para abrir o Ranking -->
+    <button class="btn-toggle-ranking" onclick="toggleRanking()" id="btnRanking">
+        <i class="fas fa-chevron-left" id="iconRanking"></i>
+        <span class="vertical-text">RANKING</span>
+    </button>
+
+    <!-- Sidebar do Ranking -->
+    <div class="ranking-sidebar custom-scrollbar-thin" id="sidebarRanking">
+        <div class="text-center mb-6 relative">
+            <h2 class="text-2xl font-bold silver-gradient mb-2"><i class="fas fa-trophy mr-2"></i> Ranking Global</h2>
+            <p class="text-xs text-silver-500">Top 5 usuários em destaque</p>
+            <button onclick="toggleRanking()"
+                class="absolute top-0 right-0 text-silver-400 hover:text-white transition-colors"
+                style="background: none; border: none; font-size: 1.5rem; cursor: pointer;">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <div class="flex flex-col gap-3">
+            {% for rank_user in top_users %}
+            {% if loop.index == 1 %}
+            <!-- Ranking Item 1 -->
+            <div class="ranking-item-card relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-yellow-400 to-yellow-600"></div>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <i class="fas fa-medal ranking-medal"></i>
+                        <div class="flex flex-col">
+                            <span class="text-xs text-white font-bold">{{ rank_user.nick }}</span>
+                            <span class="text-lg text-green-400 font-bold uppercase tracking-wider">Nível {{
+                                rank_user.level|default(1) }}</span>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-sm font-bold text-silver-300">{{ rank_user.xp|default(0) }}</span>
+                        <span class="text-xs text-silver-500 block">XP Total</span>
+                    </div>
+                </div>
+            </div>
+            {% elif loop.index == 2 %}
+            <!-- Ranking Item 2 -->
+            <div class="ranking-item-card relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-gray-300 to-gray-500"></div>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <i class="fas fa-medal ranking-medal silver"></i>
+                        <div class="flex flex-col">
+                            <span class="text-xs text-white font-bold">{{ rank_user.nick }}</span>
+                            <span class="text-lg text-green-400 font-bold uppercase tracking-wider">Nível {{
+                                rank_user.level|default(1) }}</span>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-sm font-bold text-silver-300">{{ rank_user.xp|default(0) }}</span>
+                        <span class="text-xs text-silver-500 block">XP Total</span>
+                    </div>
+                </div>
+            </div>
+            {% elif loop.index == 3 %}
+            <!-- Ranking Item 3 -->
+            <div class="ranking-item-card relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-amber-600 to-amber-900"></div>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <i class="fas fa-medal ranking-medal bronze"></i>
+                        <div class="flex flex-col">
+                            <span class="text-xs text-white font-bold">{{ rank_user.nick }}</span>
+                            <span class="text-lg text-green-400 font-bold uppercase tracking-wider">Nível {{
+                                rank_user.level|default(1) }}</span>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-sm font-bold text-silver-300">{{ rank_user.xp|default(0) }}</span>
+                        <span class="text-xs text-silver-500 block">XP Total</span>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <!-- Ranking Item {{ loop.index }} -->
+            <div class="ranking-item-card">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <div
+                            style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); width: 2rem; height: 2rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #9CA3AF;">
+                            {{ loop.index }}</div>
+                        <div class="flex flex-col">
+                            <span class="text-base text-silver-200 font-medium">{{ rank_user.nick }}</span>
+                            <span class="text-xs text-green-400/80 font-bold uppercase tracking-wider">Nível {{
+                                rank_user.level|default(1) }}</span>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-sm font-bold text-silver-400">{{ rank_user.xp|default(0) }}</span>
+                        <span class="text-xs text-silver-600 block">XP Total</span>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+
+            {% if not top_users %}
+            <p class="text-center text-silver-500 mt-4">Nenhum ranking disponível no momento.</p>
+            {% endif %}
+
+        </div>
+    </div>
+
+    <!-- Mercado cripto -->
+    <div class="mt-6">
+        <div class="flex flex-col items-center text-center gap-3 mb-4">
+            <p class="text-xs uppercase tracking-[0.35em] text-silver-500 painel-financeiro-label">Painel financeiro</p>
+            <h2 class="font-bold silver-gradient" style="font-size: 36pt;"><i class="bi bi-graph-up-arrow mr-2"></i> Mercado cripto</h2>
+            <span class="crypto-pill visao-geral-label"><i class="bi bi-currency-bitcoin"></i> Visão geral</span>
+        </div>
+
+
+        <div class="liquid-glass crypto-panel">
+            <div class="grid gap-4 lg:grid-cols-[1.15fr_0.85fr]">
+                <div class="stats-card crypto-card">
+                    <div class="flex items-start justify-between gap-4">
+                        <div>
+                            <p class="text-silver-400 text-sm uppercase tracking-[0.25em]">Portfólio total</p>
+                            <p class="text-3xl font-semibold text-white mt-2">R$ 128.450</p>
+                        </div>
+                        <div class="crypto-icon">
+                            <i class="bi bi-wallet2"></i>
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-3 mt-5">
+                        <div class="crypto-metric">
+                            <p class="text-[11px] uppercase tracking-[0.25em] text-silver-500">BTC</p>
+                            <p class="text-lg font-semibold text-white mt-1">R$ 328.400</p>
+                            <p class="text-sm text-emerald-400">+4,2%</p>
+                        </div>
+                        <div class="crypto-metric">
+                            <p class="text-[11px] uppercase tracking-[0.25em] text-silver-500">ETH</p>
+                            <p class="text-lg font-semibold text-white mt-1">R$ 11.820</p>
+                            <p class="text-sm text-emerald-400">+2,7%</p>
+                        </div>
+                        <div class="crypto-metric">
+                            <p class="text-[11px] uppercase tracking-[0.25em] text-silver-500">SOL</p>
+                            <p class="text-lg font-semibold text-white mt-1">R$ 612</p>
+                            <p class="text-sm text-emerald-400">+6,1%</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stats-card crypto-card">
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <p class="text-silver-400 text-sm uppercase tracking-[0.25em]">Rendimento</p>
+                            <h3 class="text-lg font-semibold text-white">Diário</h3>
+                        </div>
+                        <span class="text-sm font-semibold text-emerald-400">+3,4%</span>
+                    </div>
+
+                    <svg viewBox="0 0 240 120" class="w-full h-32 crypto-chart">
+                        <path d="M0 95 C20 88, 35 74, 55 70 S95 60, 120 62 S165 66, 185 54 S215 40, 240 24" fill="none" stroke="#8b5cf6" stroke-width="3" stroke-linecap="round" />
+                        <path d="M0 95 C20 88, 35 74, 55 70 S95 60, 120 62 S165 66, 185 54 S215 40, 240 24 L240 120 L0 120 Z" fill="url(#crypto-gradient)" opacity="0.22" />
+                        <defs>
+                            <linearGradient id="crypto-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#8b5cf6" />
+                                <stop offset="100%" stop-color="#0f172a" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+
+                    <div class="flex justify-between text-xs text-silver-500 mt-2">
+                        <span>Seg</span>
+                        <span>Ter</span>
+                        <span>Qua</span>
+                        <span>Qui</span>
+                        <span>Sex</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modais removidos -->
+    <div class="mt-6">
+        <div class="bg-black rounded-lg border border-gray-800 shadow-lg p-6">
+            <h3 class="text-xl font-bold text-white mb-2">Central de atividades</h3>
+            <p class="text-silver-400">As opções de interação foram removidas desta experiência. Você pode seguir usando o painel principal, ajustes de conta e pagamentos normalmente.</p>
+
+            <div class="crypto-actions" style="display: flex; margin-top: 16px; gap: 16px;">
+                <button type="button" id="btn-abrir-investir" class="btn-aceitar"><i class="fas fa-arrow-up mr-2"></i>Investir</button>
+                <button type="button" id="btn-abrir-resgatar" class="btn-continuar"><i class="fas fa-arrow-down mr-2"></i>Resgatar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-investir" class="modal-saque hidden">
+        <div id="modal-investir-backdrop" class="modal-saque-backdrop"></div>
+        <div class="modal-saque-wrapper">
+            <div class="modal-saque-content">
+                <h3 class="text-xl font-bold text-white mb-4"><i class="fas fa-coins mr-2"></i>Investir</h3>
+                <p class="text-sm text-white/70 mb-3">Saldo disponível: <strong id="saldo-disponivel-investir">R$ {{ (user.balance or 0) | round(2) }}</strong></p>
+                <form id="form-investir" class="space-y-4">
+                    <div>
+                        <label for="valor-investir" class="block text-sm text-white/80 mb-1">Quanto deseja investir?</label>
+                        <input id="valor-investir" name="valor_investir" type="number" min="0.01" step="0.01" placeholder="Ex: 150.00"
+                            class="w-full px-4 py-2 rounded-lg bg-black/30 border border-white/20 text-white focus:outline-none">
+                    </div>
+                    <div class="flex gap-3 pt-2">
+                        <button type="button" id="btn-cancelar-investir" class="btn-recusar w-1/2">Cancelar</button>
+                        <button type="submit" id="btn-confirmar-investir" class="btn-aceitar w-1/2">Confirmar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-resgatar" class="modal-saque hidden">
+        <div id="modal-resgatar-backdrop" class="modal-saque-backdrop"></div>
+        <div class="modal-saque-wrapper">
+            <div class="modal-saque-content">
+                <h3 class="text-xl font-bold text-white mb-4"><i class="fas fa-hand-holding-usd mr-2"></i>Resgatar</h3>
+                <p class="text-sm text-white/70 mb-3">Investido disponível: <strong id="investido-disponivel-resgatar">R$ 0,00</strong></p>
+                <form id="form-resgatar" class="space-y-4">
+                    <div>
+                        <label for="valor-resgatar" class="block text-sm text-white/80 mb-1">Quanto deseja resgatar?</label>
+                        <input id="valor-resgatar" name="valor_resgatar" type="number" min="0.01" step="0.01" placeholder="Ex: 50.00"
+                            class="w-full px-4 py-2 rounded-lg bg-black/30 border border-white/20 text-white focus:outline-none">
+                    </div>
+                    <div class="flex gap-3 pt-2">
+                        <button type="button" id="btn-cancelar-resgatar" class="btn-recusar w-1/2">Cancelar</button>
+                        <button type="submit" id="btn-confirmar-resgatar" class="btn-aceitar w-1/2">Confirmar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sistema de Experiência -->
+    {% set current_xp = user.xp|default(0) %}
+    {% set level = user.level|default(1) %}
+    {% set xp_progress = current_xp % 100 %}
+    <div class="xp-container" id="xp-container" style="margin-bottom: 30px; --progress: {{ xp_progress }}%;">
+        <div class="flex justify-between items-center mb-2">
+            <span class="text-sm font-bold uppercase tracking-wider text-indigo-300" id="xp-level-text">Nível {{ level
+                }}</span>
+            <span class="text-xs text-white/50" id="xp-total-text">{{ user.xp }} XP Total</span>
+        </div>
+        <div class="xp-bar" title="Ganhe estrelas nas avaliações para subir de nível!">
+            <div class="xp-bar-fill" id="xp-bar-fill" style="width: var(--progress);"></div>
+        </div>
+        <div class="flex justify-between mt-2">
+            <div class="xp-text" id="xp-text"><span>{{ xp_progress }}</span> / 100 XP para o nível {{ level + 1 }}</div>
+            <div class="text-xs text-silver-500 italic">Cada estrela vale 1 XP</div>
+        </div>
+    </div>
+    <!-- Sistema de checkin-diario-->
+    <div class="container-checkin-diario" id="checkin-wrapper" data-user-id="{{ user.id }}" data-user-xp="{{ user.xp|default(0) }}" data-user-level="{{ user.level|default(1) }}">
+        <h2 class="text-2xl font-bold silver-gradient mb-4" style="text-align: center; margin-bottom: 30px;">Resgate seu
+            Ticket Diário</h2>
+        <div class="chekin-timeline">
+            <div class="checkin-item">
+                <div class="checkin-day">1</div>
+                <div class="checkin-date"></div>
+                <div class="checkin-info"></div>
+                <div class="checkin-reward-container">
+                    <img class="checkin-reward-image"
+                        src="{{ url_for('static', filename='img/icon_tickets/bilhete-de-voo.png') }}"
+                        alt="ticket comum">
+                </div>
+                <button id="checkin-day-1" class="checkin-btn">Check-in</button>
+            </div>
+            <div class="checkin-item">
+                <div class="checkin-day">2</div>
+                <div class="checkin-date"></div>
+                <div class="checkin-info">5 xp</div>
+                <div class="checkin-reward-container">
+                    <img class="checkin-reward-image"
+                        src="{{ url_for('static', filename='img/icon_tickets/bilhete-de-voo.png') }}"
+                        alt="ticket comum">
+                </div>
+                <button id="checkin-day-2" class="checkin-btn">Check-in</button>
+            </div>
+            <div class="checkin-item">
+                <div class="checkin-day">3</div>
+                <div class="checkin-date"></div>
+                <div class="checkin-info">5 xp</div>
+                <div class="checkin-reward-container">
+                    <img class="checkin-reward-image"
+                        src="{{ url_for('static', filename='img/icon_tickets/bilhete-de-voo.png') }}"
+                        alt="ticket comum">
+                </div>
+                <button id="checkin-day-3" class="checkin-btn">Check-in</button>
+            </div>
+            <div class="checkin-item">
+                <div class="checkin-day">4</div>
+                <div class="checkin-date"></div>
+                <div class="checkin-info">5 xp</div>
+                <div class="checkin-reward-container">
+                    <img class="checkin-reward-image"
+                        src="{{ url_for('static', filename='img/icon_tickets/bilhete-de-voo.png') }}"
+                        alt="ticket comum">
+                </div>
+                <button id="checkin-day-4" class="checkin-btn">Check-in</button>
+            </div>
+            <div class="checkin-item">
+                <div class="checkin-day">5</div>
+                <div class="checkin-date"></div>
+                <div class="checkin-info">5 xp</div>
+                <div class="checkin-reward-container">
+                    <img class="checkin-reward-image"
+                        src="{{ url_for('static', filename='img/icon_tickets/bilhete-de-voo.png') }}"
+                        alt="ticket comum">
+                </div>
+                <button id="checkin-day-5" class="checkin-btn">Check-in</button>
+            </div>
+            <div class="checkin-item">
+                <div class="checkin-day">6</div>
+                <div class="checkin-date"></div>
+                <div class="checkin-info">10 xp</div>
+                <div class="checkin-reward-container">
+                    <img class="checkin-reward-image"
+                        src="{{ url_for('static', filename='img/icon_tickets/passagem-aerea_prata.png') }}"
+                        alt="passagem prata">
+                </div>
+                <button id="checkin-day-6" class="checkin-btn">Check-in</button>
+            </div>
+            <div class="checkin-item">
+                <div class="checkin-day">7</div>
+                <div class="checkin-date"></div>
+                <div class="checkin-info">20 xp</div>
+                <div class="checkin-reward-container">
+                    <img class="checkin-reward-image"
+                        src="{{ url_for('static', filename='img/icon_tickets/passagem-aerea_gold.png') }}"
+                        alt="passagem gold">
+                </div>
+                <button id="checkin-day-7" class="checkin-btn">Check-in</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popup de bônus semanal -->
+    <div id="weekly-bonus-modal"
+        style="display:none; position: fixed; inset: 0; z-index: 99999; align-items:center; justify-content:center; padding: 16px;">
+        <div id="weekly-bonus-backdrop"
+            style="position:absolute; inset:0; background: rgba(0,0,0,0.75); backdrop-filter: blur(6px);"></div>
+        <div
+            style="position:relative; z-index:2; width:min(92vw, 420px); border-radius:20px; border:1px solid rgba(255,255,255,.2); background:rgba(10,10,20,.85); box-shadow:0 10px 40px rgba(0,0,0,.45); padding:20px; text-align:center;">
+            <h3 style="margin:0 0 8px; color:#fff; font-size:1.25rem; font-weight:800;">🎉 Bônus Semanal Conquistado!</h3>
+            <p id="weekly-bonus-text" style="margin:0 0 12px; color:#d1d5db;">Você recebeu um loot especial de XP.</p>
+            <img src="https://media.giphy.com/media/3o6fJ1BM7R2EBRDnxK/giphy.gif" alt="Loot animado"
+                style="width:100%; max-width:260px; border-radius:14px; margin: 0 auto 14px; display:block;">
+            <button id="weekly-bonus-close"
+                style="border:none; border-radius:10px; padding:10px 16px; font-weight:700; color:#fff; background:linear-gradient(135deg,#7c3aed,#2563eb); cursor:pointer;">
+                Coletar
+            </button>
+        </div>
+    </div>
+
+</main>
+<!-- Footer -->
+<footer class="container-footer">
+    <div class="container-mx-auto">
+        <div class="grid-footer">
+            <div>
+                <h3 class="title-footer">Plataforma</h3>
+                <p class="text-silver-400">Sua plataforma para acompanhar sua conta, pagamentos e configurações de forma simples e organizada.</p>
+            </div>
+
+            <div>
+                <h4 class="title-silver-400">Links Rápidos</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="text-silver-400 hover:text-white transition-colors">Sobre Nós</a></li>
+                    <li><a href="#" class="text-silver-400 hover:text-white transition-colors">Políticas</a></li>
+                    <li><a href="#" class="text-silver-400 hover:text-white transition-colors">FAQ</a></li>
+                    <li><a href="#" class="text-silver-400 hover:text-white transition-colors">Suporte</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="title-silver-400">Contato</h4>
+                <div class="space-y-2">
+                    <p class="text-silver-400"><i class="fas fa-phone mr-2"></i>+55 (11) 9999-9999</p>
+                    <p class="text-silver-400"><i class="fas fa-envelope mr-2"></i>suporte@plataforma.com</p>
+                    <p class="text-silver-400"><i class="fas fa-map-marker-alt mr-2"></i>São Paulo, Brasil</p>
+                </div>
+            </div>
+            <div>
+                <h4 class="title-silver-400">Newsletter</h4>
+                <div class="flex-footer">
+                    <input type="email" placeholder="Seu email" class="flex-newsletter">
+                    <button class="btn-icon-newsletter">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="border-t-footer">
+            <p class="text-register">© 2025 Plataforma. Todos os direitos reservados.</p>
+        </div>
+    </div>
+</footer>
+{% endblock body%}
+{% endblock content %}
+
+{% block script %}
+    <script src="{{ url_for('static', filename='Script/DashUser.js') }}"></script>
+{%endblock script %}

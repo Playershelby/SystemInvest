@@ -1,0 +1,31 @@
+{{% extends 'base.html' %}}
+{% block titule %}Redirect{% endblock %}
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='StyleRedirect.css') }}">
+    <title>redirect</title>
+</head>
+<body>
+    <h1>Cadastro realizado com sucesso!</h1>
+    <div id="loading" style="display:none;">
+        <div class="spinner"></div>
+        <p>Carregando...</p>
+    </div>
+    <!-- Área de Mensagens -->
+        <div id="mensagens">
+            <p>{{ message }}</p>
+            <p>Você será redirecionado em {{ delay }} segundos...</p>
+            <a href="{{ redirect_url }}">Clique aqui se não for redirecionado</a>
+        </div>
+
+</body> 
+{% block script %}
+    <script src="{{ url_for('static', filename='Script/Redirect.js') }}"></script>
+{% endblock script %}
+</html>
+{% endblock content %}
+    
+
+

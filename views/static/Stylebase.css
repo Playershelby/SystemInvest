@@ -1,0 +1,852 @@
+/* ===== CSS Variables ===== */
+:root {
+    --color-black: #000000;
+    --color-dark: #1a1a1a;
+    --color-dark-gray: #323232;
+    --color-silver: #c0c0c0;
+    --color-light-silver: #e8e8e8;
+    --color-white: #ffffff;
+
+    --gradient-dark: linear-gradient(135deg, var(--color-black) 0%, var(--color-dark) 50%, var(--color-dark-gray) 100%);
+    --gradient-accent: linear-gradient(135deg, var(--color-dark-gray) 0%, var(--color-silver) 100%);
+
+    --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.3);
+    --shadow-glow: 0 0 30px rgba(192, 192, 192, 0.1);
+
+    --transition-fast: 0.2s ease;
+    --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+
+    --border-radius-sm: 0.5rem;
+    --border-radius-md: 1rem;
+    --border-radius-lg: 1.5rem;
+    --border-radius-xl: 2rem;
+}
+
+/* ===== Reset Global Elegante ===== */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    min-height: 100vh;
+    padding: 0 20px;
+    margin: 0 auto;
+    font-family: 'Inter', 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 1.6rem;
+    line-height: 1.6;
+    color: var(--color-light-silver);
+    background: var(--gradient-dark);
+    background-attachment: fixed;
+    z-index: 0;
+}
+
+/* ===== Theme Claro (apenas fundo da página como solicitado) ===== */
+body.theme-light {
+    /* offwhite */
+    background: #faf9f6 !important;
+}
+
+body.theme-light .theme-toggle-btn {
+    background: #faf9f6;
+    color: #333;
+    border: 1px solid #ccc;
+}
+
+body.theme-light .theme-toggle-btn:hover {
+    background: #eee;
+}
+
+body.theme-dark .theme-toggle-btn {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+body.theme-dark .theme-toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Button Style for Theme Toggle */
+/* From Uiverse.io by Madflows */ 
+.toggle-switch {
+  position: fixed;
+  top: 14px;
+  right: 10px;
+  transform: none;
+  z-index: 1300;
+  width: 82px;
+  height: 32px;
+  display: block;
+  --light: #d8dbe0;
+  --dark: #28292c;
+  --link: rgb(27, 129, 112);
+  --link-hover: rgb(24, 94, 82);
+}
+
+.switch-label {
+  position: absolute;
+  width: 100%;
+  height: 32px;
+  background-color: var(--dark);
+  border-radius: 20px;
+  cursor: pointer;
+  border: 2px solid var(--dark);
+}
+
+.checkbox {
+  position: absolute;
+  display: none;
+}
+
+.slider {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.checkbox:checked ~ .slider {
+  background-color: var(--light);
+}
+
+.slider::before {
+  content: "";
+  position: absolute;
+  top: 6px;
+  right: 4px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  -webkit-box-shadow: inset 10px -3px 0px 0px var(--light);
+  box-shadow: inset 10px -3px 0px 0px var(--light);
+  background-color: var(--dark);
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.checkbox:checked ~ .slider::before {
+  -webkit-transform: translateX(-54px);
+  -ms-transform: translateX(-54px);
+  transform: translateX(-54px);
+  background-color: var(--dark);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+
+/* ===== Tipografia Refinada ===== */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--color-white);
+    letter-spacing: -0.02em;
+}
+
+h1 {
+    font-size: 3.2rem;
+}
+
+h2 {
+    font-size: 2.8rem;
+}
+
+h3 {
+    font-size: 2.4rem;
+}
+
+h4 {
+    font-size: 2rem;
+}
+
+h5 {
+    font-size: 1.8rem;
+}
+
+h6 {
+    font-size: 1.6rem;
+}
+
+p {
+    margin-bottom: 1.5rem;
+    color: var(--color-silver);
+}
+
+a {
+    color: var(--color-light-silver);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+a:hover {
+    color: var(--color-white);
+}
+
+/* ===== Elementos Base ===== */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    outline: none;
+}
+
+input,
+textarea,
+select {
+    font-family: inherit;
+    font-size: inherit;
+    outline: none;
+}
+
+ul,
+ol {
+    list-style: none;
+}
+
+/* ===== Utilitários ===== */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    z-index: 0;
+}
+
+.container_img img {
+    margin: 0 auto;
+    max-width: 1024px;
+    width: 50%;
+    z-index: 9999;
+}
+
+/* ===== Scrollbar Personalizada ===== */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-dark-gray);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-silver);
+}
+
+/* ===== Seleção de Texto ===== */
+::selection {
+    background: var(--color-dark-gray);
+    color: var(--color-white);
+}
+
+/*========= Mensagen Flash ======= */
+
+.flash-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    min-width: 300px;
+    max-width: 500px;
+    background: rgba(200, 200, 200, 0.3);
+    backdrop-filter: blur(15px);
+    border-radius: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 15px;
+    margin: 10px 0;
+    border-left: 4px solid #0022ff;
+    animation: slideInRight 0.3s ease-out;
+    z-index: 9999;
+}
+
+.close-flash {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    color: #c0c0c0;
+    background: none;
+    border: none;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.close-flash:hover {
+    color: #ff0000;
+    background: none;
+    transform: scale(1.1);
+}
+
+.flashes {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    padding-right: 30px;
+}
+
+.flash-message {
+    margin: 5px 0;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+/* Estilos para categorias de mensagens flash */
+.flash-message.success {
+    background-color: transparent;
+    color: #fff;
+    border-left: 3px solid #28a745;
+}
+
+.flash-message.error {
+    background-color: transparent;
+    color: #ff0f0f;
+    border-left: 3px solid #dc3545;
+}
+
+.flash-message.warning {
+    background-color: transparent;
+    color: #d0ff25;
+    border-left: 3px solid #ffc107;
+}
+
+.flash-message.info {
+    background-color: transparent;
+    color: #ffffff;
+    border-left: 3px solid #17a2b8;
+}
+
+.flash-message.danger {
+    background-color: transparent;
+    color: #2c2c77;
+    border-left: 3px solid #dc3545;
+}
+
+/* Animações */
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+}
+
+/* Para o fechamento suave */
+.flash-container.fade-out {
+    animation: fadeOut 0.3s ease-in forwards;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .flash-container {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        min-width: auto;
+        max-width: none;
+    }
+}
+
+/* Efeitos de hover no container */
+.flash-container:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+}
+
+/* ===== Toast Notifications (SPA Realtime) ===== */
+.toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    pointer-events: none;
+}
+
+.toast {
+    pointer-events: auto;
+    min-width: 320px;
+    max-width: 420px;
+    padding: 16px 20px;
+    border-radius: 16px;
+    background: rgba(15, 15, 30, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    animation: toastSlideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.toast:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.toast.toast-exit {
+    animation: toastSlideOut 0.4s cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
+.toast-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.toast-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.toast-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 2px;
+    letter-spacing: 0.01em;
+}
+
+.toast-message {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0;
+    line-height: 1.4;
+}
+
+.toast-progress {
+    position: absolute;
+    bottom: 0;
+    left: 16px;
+    right: 16px;
+    height: 3px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+}
+
+.toast-progress-bar {
+    height: 100%;
+    border-radius: 2px;
+    animation: toastProgress 5s linear forwards;
+}
+
+/* Toast types */
+.toast-info .toast-icon {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+}
+.toast-info .toast-progress-bar {
+    background: linear-gradient(90deg, #6366f1, #8b5cf6);
+}
+
+.toast-completed .toast-icon {
+    background: linear-gradient(135deg, #10b981, #34d399);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+}
+.toast-completed .toast-progress-bar {
+    background: linear-gradient(90deg, #10b981, #34d399);
+}
+
+.toast-accepted .toast-icon {
+    background: linear-gradient(135deg, #f59e0b, #fbbf24);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+}
+.toast-accepted .toast-progress-bar {
+    background: linear-gradient(90deg, #f59e0b, #fbbf24);
+}
+
+.toast-cancelled .toast-icon {
+    background: linear-gradient(135deg, #ef4444, #f87171);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+}
+.toast-cancelled .toast-progress-bar {
+    background: linear-gradient(90deg, #ef4444, #f87171);
+}
+
+@keyframes toastSlideIn {
+    from {
+        transform: translateX(120%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes toastSlideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(120%);
+        opacity: 0;
+    }
+}
+
+@keyframes toastProgress {
+    from { width: 100%; }
+    to { width: 0%; }
+}
+
+@media (max-width: 768px) {
+    .toast-container {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+    }
+    .toast {
+        min-width: auto;
+        max-width: none;
+    }
+}
+
+/* Info e contato */
+/* From Uiverse.io by 20essentials (convertido para CSS puro) */
+.menu-tooltip {
+  --toggle-color: #ffffff;
+  --item-1-gradient: linear-gradient(45deg, #0A2342, #5A189A);
+  --item-2-gradient: linear-gradient(45deg, #0A2342, #D4AF37);
+  --item-3-gradient: linear-gradient(45deg, #0A2342, #808080);
+  width: 200px;
+  height: 200px;
+  position: fixed;
+  right: 12px;
+  bottom: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  z-index: 1200;
+}
+
+.menu-tooltip .toggle {
+  width: 60px;
+  height: 60px;
+  background-color: var(--toggle-color);
+  text-align: center;
+  line-height: 60px;
+  border-radius: 50%;
+  font-size: 1.8em;
+  z-index: 999;
+  position: absolute;
+  transition: transform 1.2s ease-in-out;
+  cursor: pointer;
+  box-shadow: inset -2px -2px 4px 0 #0005, inset 2px 2px 4px 0 #000;
+}
+
+.menu-tooltip .toggle::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: var(--toggle-color);
+  z-index: -1;
+  filter: blur(20px) saturate(100%) opacity(0.5);
+  border-radius: 50%;
+}
+
+.menu-tooltip #toggle {
+  appearance: none;
+  visibility: hidden;
+  position: absolute;
+}
+
+.menu-tooltip #toggle:checked + .toggle {
+  transform: rotate(315deg);
+}
+
+.menu-tooltip #toggle:checked ~ .circle-box {
+  transform: rotate(calc(360deg / 8 * var(--i)));
+}
+
+.menu-tooltip .circle-box {
+  position: absolute;
+  left: 0;
+  list-style-type: none;
+  transition: 0.5s;
+  transform-origin: 100px;
+  transition-delay: calc(0.1s * var(--i));
+  transform: rotate(0deg) translateX(70px);
+}
+
+.menu-tooltip .circle-box:nth-of-type(1) .anchor {
+  background: var(--item-1-gradient);
+}
+
+.menu-tooltip .circle-box:nth-of-type(2) .anchor {
+  background: var(--item-2-gradient);
+}
+
+.menu-tooltip .circle-box:nth-of-type(3) .anchor {
+  background: var(--item-3-gradient);
+}
+
+.menu-tooltip .circle-box:nth-of-type(4),
+.menu-tooltip .circle-box:nth-of-type(5),
+.menu-tooltip .circle-box:nth-of-type(6),
+.menu-tooltip .circle-box:nth-of-type(7) {
+  visibility: hidden;
+}
+
+.menu-tooltip .anchor {
+  width: 50px;
+  height: 50px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 50px;
+  border-radius: 50%;
+  font-size: 1.5em;
+  text-decoration: none;
+  transform: rotate(calc(360deg / -8 * var(--i)));
+}
+
+.menu-tooltip .anchor::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: inherit;
+  border-radius: inherit;
+  z-index: -1;
+  filter: blur(30px) saturate(300%);
+  transition: inset 0.2s ease;
+}
+
+.menu-tooltip .anchor:hover::before {
+  inset: -7px;
+}
+
+/* Global Page Loader (delay de transição entre páginas) */
+.page-loader {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-loader.hidden {
+  display: none;
+}
+
+.page-loader .loader {
+  width: 80px;
+  height: 80px;
+  position: relative;
+}
+
+@keyframes loader_5191 {
+  from {
+    opacity: 0.2;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.page-loader .square {
+  background: #ddd;
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -5px;
+  margin-left: -5px;
+}
+
+.page-loader #sq1 {
+  margin-top: -25px;
+  margin-left: -25px;
+  animation: loader_5191 675ms ease-in-out 0s infinite alternate;
+}
+
+.page-loader #sq2 {
+  margin-top: -25px;
+  animation: loader_5191 675ms ease-in-out 75ms infinite alternate;
+}
+
+.page-loader #sq3 {
+  margin-top: -25px;
+  margin-left: 15px;
+  animation: loader_5191 675ms ease-in-out 150ms infinite alternate;
+}
+
+.page-loader #sq4 {
+  margin-left: -25px;
+  animation: loader_5191 675ms ease-in-out 225ms infinite alternate;
+}
+
+.page-loader #sq5 {
+  animation: loader_5191 675ms ease-in-out 300ms infinite alternate;
+}
+
+.page-loader #sq6 {
+  margin-left: 15px;
+  animation: loader_5191 675ms ease-in-out 375ms infinite alternate;
+}
+
+.page-loader #sq7 {
+  margin-top: 15px;
+  margin-left: -25px;
+  animation: loader_5191 675ms ease-in-out 450ms infinite alternate;
+}
+
+.page-loader #sq8 {
+  margin-top: 15px;
+  animation: loader_5191 675ms ease-in-out 525ms infinite alternate;
+}
+
+.page-loader #sq9 {
+  margin-top: 15px;
+  margin-left: 15px;
+  animation: loader_5191 675ms ease-in-out 600ms infinite alternate;
+}
+
+/* Checkbox customizado (formulários) */
+.custom-checkbox {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  font-size: 16px;
+  color: #333;
+  transition: color 0.3s;
+  gap: 10px;
+}
+
+.custom-checkbox input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.custom-checkbox .checkmark {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #333;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s, border-color 0.3s, transform 0.3s;
+  transform-style: preserve-3d;
+  flex-shrink: 0;
+}
+
+.custom-checkbox .checkmark::before {
+  content: "\2713";
+  font-size: 16px;
+  color: transparent;
+  transition: color 0.3s, transform 0.3s;
+}
+
+.custom-checkbox input[type="checkbox"]:checked + .checkmark {
+  background-color: #333;
+  border-color: #333;
+  transform: scale(1.1) rotateZ(360deg) rotateY(360deg);
+}
+
+.custom-checkbox input[type="checkbox"]:checked + .checkmark::before {
+  color: #fff;
+}
+
+.custom-checkbox:hover {
+  color: #666;
+}
+
+.custom-checkbox:hover .checkmark {
+  border-color: #666;
+  background-color: #f0f0f0;
+  transform: scale(1.05);
+}
+
+.custom-checkbox input[type="checkbox"]:focus + .checkmark {
+  box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.2);
+  outline: none;
+}
+
+.custom-checkbox .checkmark,
+.custom-checkbox input[type="checkbox"]:checked + .checkmark {
+  transition: background-color 1.3s, border-color 1.3s, color 1.3s, transform 0.3s;
+}

@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+{% block title %}Cadastro{% endblock %}
+
+{% block head %}
+{{super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='StyleCad.css') }}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+{% endblock head %}
+
+{% block content %}
+<button class="btn-back-register" onclick="history.back()">Voltar</button>
+<h1>Cadastro</h1>
+<form action="{{ url_for('auth.register') }}" method="post" enctype="multipart/form-data">
+    {% if error %}
+    <div style="color: red; margin-bottom: 10px;">
+        {{ error }}
+    </div>
+    {% endif %}
+
+    <input type="file" name="profile_pic" accept="image/*" capture id="profile_pic" hidden>
+
+    <label>Nome: </label>
+    <input id="nome" type="text" name="nomeForm" value="{{ form_data.nomeForm if form_data else '' }}"
+        placeholder="Seu nome">
+
+    <label>Email: </label>
+    <input id="email" type="text" name="emailForm" value="{{ form_data.emailForm if form_data else '' }}"
+        placeholder="Seu email">
+
+
+    <label>Senha: </label>
+    <div class="password">
+        <input id="password" type="password" name="senhaForm" required placeholder="Sua senha">
+        <i class="bi bi-eye" id="btn-senha" onclick="mostrarSenha()"></i>
+    </div>
+
+    <div class="password-checklist">
+        <div class="check-item" data-rule="length">
+            <span class="check-icon">✗</span>
+            Mínimo 8 caracteres
+        </div>
+        <div class="check-item" data-rule="uppercase">
+            <span class="check-icon">✗</span>
+            Pelo menos 1 letra maiúscula
+        </div>
+        <div class="check-item" data-rule="lowercase">
+            <span class="check-icon">✗</span>
+            Pelo menos 1 letra minúscula
+        </div>
+        <div class="check-item" data-rule="number">
+            <span class="check-icon">✗</span>
+            Pelo menos 1 número
+        </div>
+        <div class="check-item" data-rule="special">
+            <span class="check-icon">✗</span>
+            Pelo menos 1 caractere especial (!@#$%&*)
+        </div>
+    </div>
+
+
+    <label>Confirme a senha: </label>
+    <div class="passord_confir">
+        <input id="passwordConfirm" type="password" name="confirmarSenhaForm" required placeholder="Confirme sua senha">
+
+        <i class="bi bi-eye" id="btn-senhaConfirm" onclick="mostrarSenhaConfirm()"></i>
+
+    </div>
+
+    <div class="password-checklist" id="confirmPasswordChecklist" style="display: none;">
+        <div class="check-item" id="matchPasswordRule">
+            <span class="check-icon">✗</span>
+            As senhas coincidem
+        </div>
+    </div>
+
+    <label>CPF ou CNPJ: </label>
+    <div class="cpf">
+        <input id="cpf" type="text" name="cpfForm" value="{{ form_data.cpfForm if form_data else '' }}"
+            placeholder="Digite seu CPF ou CNPJ" maxlength="18" 
+            title="Digite um CPF (xxx.xxx.xxx-xx) ou CNPJ (xx.xxx.xxx/xxxx-xx)">
+    </div>
+
+    <label>Data de nascimento: </label>
+    <div class="data_nasc">
+        <input id="dataNascimento" type="date" name="dataNascimentoForm"
+            value="{{ form_data.dataNascimentoForm if form_data else '' }}">
+    </div>
+
+    <label>Documento oficial com foto</label>
+    <div class="document">
+        <div class="file-input-container">
+            <input id="documentoFile" type="file" name="documentoForm" accept=".jpg, .jpeg, .png, .pdf, .doc">
+            <label for="documentoFile" class="file-label">
+                <i class="bi bi-upload"></i>
+                Enviar arquivo
+            </label>
+        </div>
+        <div class="file-info empty" id="fileInfo">
+            Nenhum arquivo selecionado
+        </div>
+        <img id="filePreview" class="file-preview" alt="Pré-visualização do arquivo selecionado"
+            src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/fe6712a8-7568-41ea-b0ed-7d06546206ee.png">
+        <p class="supported-formats">
+            <strong id="documentHint">Carregue um documento oficial com foto</strong><br>
+            Formatos suportados: JPG, JPEG, PNG, PDF, DOC
+        </p>
+    </div>
+
+    <div class="checkbox-container">
+        <label class="custom-checkbox">
+            <input type="checkbox" id="termsCheckbox" name="termsCheckbox" required>
+            <span class="checkmark"></span>
+            <span>Aceito os <a href="{{ url_for('user.authtermos') }}" target="_blank">termos de uso</a></span>
+        </label>
+
+        <label class="custom-checkbox">
+            <input type="checkbox" id="privacyCheckbox" name="privacyCheckbox" required>
+            <span class="checkmark"></span>
+            <span>Aceito a <a href="{{ url_for('user.authtermos') }}" target="_blank">política de privacidade</a></span>
+        </label>
+    </div>
+
+    <div class="btns_cad">
+        <button type="reset">Limpar</button>
+        <button type="submit">Cadastrar</button>
+    </div>
+</form>
+
+{% endblock content %}
+{% block script %}
+<script src="{{ url_for('static', filename='Script/Cadastro.js') }}"></script>
+{% endblock script %}

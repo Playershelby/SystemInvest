@@ -1,0 +1,236 @@
+/* ========================================
+   CONFIGURAÇÕES - Estilo Minimalista Elegante
+   ======================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+/* Container Principal */
+.container_geral {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    min-height: 100vh;
+    padding: 80px 24px 60px;
+}
+
+/* Título Principal */
+h1 {
+    font-size: 2rem;
+    font-weight: 300;
+    color: #e8e8e8;
+    text-align: center;
+    margin: 0 0 48px;
+    letter-spacing: 0.5px;
+}
+
+/* Subtítulo / Descrição */
+h2 {
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: #c0c0c0;
+    margin: 0 0 24px;
+}
+
+/* Parágrafo / Rodapé */
+p {
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: #666;
+    text-align: center;
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+}
+
+/* Container da Lista */
+.listConfig {
+    width: 100%;
+    max-width: 480px;
+    padding: 0;
+}
+
+.listConfig ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Itens da Lista */
+.listConfig ul li {
+    padding: 18px 24px;
+    font-size: 12pt;
+    font-weight: normal;
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #c0c0c0;
+    background: #1a1a1a;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.listConfig ul li::after {
+    content: '›';
+    font-size: 14pt;
+    color: #525252;
+    transition: all 0.25s ease;
+}
+
+.listConfig ul li:hover {
+    background: #252525;
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.15);
+    transform: translateX(4px);
+}
+
+.listConfig ul li:hover::after {
+    color: #888;
+    transform: translateX(4px);
+}
+
+.listConfig ul li:active {
+    transform: translateX(2px);
+    background: #2a2a2a;
+}
+
+/* Links dentro dos itens */
+.listConfig ul li a {
+    text-decoration: none;
+    color: inherit;
+    width: 100%;
+    display: block;
+}
+
+/* Botão Voltar */
+.btn-back {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    padding: 12px 24px;
+    background: #1a1a1a;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    text-decoration: none;
+    color: #c0c0c0;
+    font-size: 12pt;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 100;
+}
+
+.btn-back:hover {
+    background: #252525;
+    transform: translateX(-4px);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.btn-back:hover a {
+    color: #fff;
+}
+
+/* Seções de Configuração */
+.settings-section {
+    width: 100%;
+    max-width: 480px;
+    margin-bottom: 32px;
+}
+
+.settings-section-title {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0 0 12px 4px;
+}
+
+/* Toggle Switch (para futuras implementações) */
+.toggle-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 24px;
+    background: #1a1a1a;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    margin-bottom: 8px;
+}
+
+.toggle-item span {
+    color: #c0c0c0;
+    font-size: 1rem;
+}
+
+/* Checkbox personalizado */
+input[type="checkbox"] {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #323232;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+input[type="checkbox"]:checked {
+    background: #525252;
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+input[type="checkbox"]:checked::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    font-size: 0.75rem;
+}
+
+input[type="checkbox"]:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Responsivo */
+@media (max-width: 600px) {
+    .container_geral {
+        padding: 70px 16px 80px;
+    }
+
+    h1 {
+        font-size: 1.6rem;
+        margin-bottom: 32px;
+    }
+
+    .listConfig ul li {
+        padding: 16px 20px;
+        font-size: 0.95rem;
+    }
+
+    .btn-back {
+        padding: 10px 18px;
+    }
+
+    p {
+        font-size: 0.8rem;
+        bottom: 16px;
+    }
+}

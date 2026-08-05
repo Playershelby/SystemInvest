@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block titule %}Pagina Inicial{% endblock %}
+
+{% block head %}
+{{super() }}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='StyleHome.css') }}">
+{% endblock head %}
+
+{% block content %}
+{% block body %}
+
+<div class="container">
+    <div class="container_logo">
+        <video src="{{ url_for('static', filename='img/Aviao-video.mp4') }}" autoplay loop muted></video>
+        <h1> Dash 📈<span>®</span> </h1>
+    </div>
+
+    <div class="container_home">
+        <div class="container_login">
+
+            <form action="/auth/login" method="POST">
+                {% if error %}
+                <div style="color: red; margin-bottom: 10px;">
+                    {{ error }}
+                </div>
+                {% endif %}
+
+                <label>Nome</label><br>
+                <input type="text" name="nome" id="email_login" placeholder="Seu Nome de usuario ou email" required><br>
+
+                <label>Senha: </label><br>
+                <div class="password">
+                    <input type="password" name="password" id="password_login" placeholder="Senha" required>
+                    <i class="bi bi-eye" id="btn-senha" onclick="mostrarSenha()"></i>
+                </div>
+                <div class="forgot-password">
+                    <a href="/user/esqueceu_senha">Esqueceu sua senha?</a>
+                </div>
+
+                <button type="submit" id="btn-login">Login</button>
+                <button type="button" id="btn-cadastro"
+                    onclick="window.location.href='/auth/register'">Register</button>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+{% endblock body %}
+{% block script %}
+    <script src="{{ url_for('static', filename='Script/ThemeToggle.js') }}"></script>
+    <script src="{{ url_for('static', filename='Script/Common.js') }}"></script>
+{% endblock script %}
+
+{% endblock content %}

@@ -1,0 +1,344 @@
+/* ========================================
+   CADASTRO - Estilo Minimalista Elegante
+   ======================================== */
+
+/* Título */
+h1 {
+    font-size: 16pt;
+    font-weight: bold;
+    letter-spacing: 0.8px;
+    text-align: center;
+    margin: 60px 0 40px;
+    color: #e8e8e8;
+}
+
+/* Formulário */
+form {
+    padding: 0 20px;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 480px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 40px;
+    background: #1a1a1a;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Labels */
+label {
+    display: block;
+    font-size: 12pt;
+    font-weight: 400;
+    color: #c0c0c0;
+    margin-bottom: 8px;
+    letter-spacing: 0.3px;
+}
+
+/* Inputs */
+input {
+    width: 100%;
+    height: 48px;
+    padding: 0 20px;
+    font-size: 12pt;
+    color: #fff;
+    background: #323232;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+input:focus {
+    border-color: rgba(255, 255, 255, 0.3);
+    background: #3a3a3a;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.05);
+}
+
+input::placeholder {
+    color: #666;
+    font-size: 12pt;
+}
+
+/* Campos de senha */
+.password,
+.passord_confir {
+    position: relative;
+}
+
+.password i,
+.passord_confir i {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 12pt;
+    color: #c0c0c0;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.password i:hover,
+.passord_confir i:hover {
+    color: #fff;
+}
+
+ .password-checklist {
+        margin-top: 5px;
+        margin-bottom: 15px;
+        font-size: 0.9em;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .check-item {
+        color: #dc3545;
+        transition: color 0.3s ease;
+    }
+
+    .check-item.valid {
+        color: #198754;
+    }
+
+    .check-item .check-icon {
+        margin-right: 8px;
+        font-weight: bold;
+        display: inline-block;
+        width: 15px;
+        text-align: center;
+    }
+
+/* Campos especiais */
+.cpf,
+.data_nasc {
+    position: relative;
+}
+
+/* Date picker */
+input[type="date"] {
+    color-scheme: dark;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    filter: invert(0.7);
+    transition: filter 0.2s ease;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+    filter: invert(1);
+}
+
+/* Upload de Documento */
+.document {
+    margin-top: 16px;
+}
+
+.file-input-container {
+    position: relative;
+    text-align: center;
+}
+
+#documentoFile {
+    position: absolute;
+    left: -9999px;
+    opacity: 0;
+}
+
+.file-label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 16px 32px;
+    background: linear-gradient(135deg, #525252 0%, #323232 100%);
+    color: #fff;
+    font-size: 12pt;
+    font-weight: 500;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.file-label:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+    background: linear-gradient(135deg, #5a5a5a 0%, #3a3a3a 100%);
+}
+
+.file-label:active {
+    transform: translateY(-1px);
+}
+
+.file-info {
+    margin-top: 20px;
+    padding: 24px;
+    background: #252525;
+    border-radius: 12px;
+    border: 2px dashed rgba(255, 255, 255, 0.15);
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.file-info.empty {
+    color: #666;
+    font-style: italic;
+    font-size: 12pt;
+}
+
+.file-info.has-file {
+    background: #2a2a2a;
+    border-color: rgba(255, 255, 255, 0.25);
+    border-style: solid;
+}
+
+.file-name {
+    font-weight: 500;
+    color: #e8e8e8;
+    margin-bottom: 8px;
+    word-break: break-word;
+    text-align: center;
+}
+
+.file-size {
+    color: #888;
+    font-size: 12pt;
+}
+
+.file-preview {
+    margin: 16px auto 0;
+    max-width: 100%;
+    max-height: 180px;
+    border-radius: 8px;
+    display: none;
+}
+
+.file-preview.visible {
+    display: block;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.supported-formats {
+    text-align: center;
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 16px;
+}
+
+/* Botões */
+.btns_cad {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 24px;
+    flex-wrap: wrap;
+}
+
+.btns_cad button,
+.btn-back-register {
+    min-width: 160px;
+    padding: 14px 28px;
+    font-size: 12pt;
+    font-weight: 500;
+    color: #fff;
+    background: linear-gradient(135deg, #525252 0%, #323232 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btns_cad button:hover,
+.btn-back-register:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, #5a5a5a 0%, #3a3a3a 100%);
+}
+
+.btns_cad button:active,
+.btn-back-register:active {
+    transform: translateY(0);
+}
+
+/* Botão Voltar */
+.btn-back-register {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    padding: 12px 24px;
+    background: #1a1a1a;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 100;
+}
+
+.btn-back-register a {
+    text-decoration: none;
+    color: #c0c0c0;
+    font-size: 12pt;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-back-register:hover {
+    background: #252525;
+    transform: translateX(-4px);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.btn-back-register:hover a {
+    color: #fff;
+}
+
+/* Responsivo */
+@media (max-width: 600px) {
+    body {
+        padding: 20px 16px;
+    }
+
+    h1 {
+        font-size: 1.6rem;
+        margin: 80px 0 24px;
+    }
+
+    form {
+        padding: 24px;
+        gap: 20px;
+    }
+
+    input {
+        height: 44px;
+        padding: 0 16px;
+    }
+
+    .file-label {
+        padding: 14px 24px;
+        font-size: 0.9rem;
+    }
+
+    .btns_cad {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btns_cad button {
+        width: 100%;
+        max-width: 280px;
+    }
+
+    .btn-back-register {
+        padding: 10px 18px;
+    }
+}

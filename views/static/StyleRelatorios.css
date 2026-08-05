@@ -1,0 +1,207 @@
+/* Custom styles for relatorio */
+.relatorio-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.header-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.btn-back {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-back:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.glass-panel {
+    background: rgba(25, 25, 30, 0.6);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 40px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.panel-title {
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 15px;
+}
+
+.modern-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 8px;
+}
+
+.modern-table th {
+    text-align: left;
+    padding: 12px 16px;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.modern-table td {
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.02);
+    color: #e2e8f0;
+}
+
+.modern-table tr td:first-child {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.modern-table tr td:last-child {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.modern-table tbody tr {
+    transition: all 0.3s;
+}
+
+.modern-table tbody tr:hover td {
+    background: rgba(255, 255, 255, 0.06);
+    transform: scale(1.005);
+}
+
+.badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.badge-success {
+    background: rgba(34, 197, 94, 0.2);
+    color: #4ade80;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.badge-pending {
+    background: rgba(234, 179, 8, 0.2);
+    color: #facc15;
+    border: 1px solid rgba(234, 179, 8, 0.3);
+}
+
+.badge-info {
+    background: rgba(56, 187, 248, 0.2);
+    color: #38bdf8;
+    border: 1px solid rgba(56, 187, 248, 0.3);
+}
+
+.badge-default {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.page-title {
+    color: white;
+    font-size: 2rem;
+}
+
+.panel-title .bi-wallet2 {
+    color: #4ade80;
+}
+
+.panel-title .bi-airplane {
+    color: #38bdf8;
+}
+
+.col-id {
+    font-weight: bold;
+    color: #94a3b8;
+}
+
+.col-valor {
+    color: #4ade80;
+    font-weight: bold;
+}
+
+.empty-state {
+    color: rgba(255, 255, 255, 0.5);
+    text-align: center;
+    padding: 20px;
+}
+
+.month-group-title {
+    color: #e2e8f0;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+    border-left: 4px solid #38bdf8;
+    padding-left: 10px;
+}
+
+.icon-geo {
+    color: #94a3b8;
+    margin-right: 5px;
+}
+
+/* Ajustes de contraste para o tema claro */
+body.theme-light .page-title,
+body.theme-light .panel-title,
+body.theme-light .modern-table th,
+body.theme-light .modern-table td,
+body.theme-light .empty-state,
+body.theme-light .month-group-title,
+body.theme-light .btn-back {
+    color: #000 !important;
+}
+
+/* BTN GERA CSV */
+.btn-pdf {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+    text-decoration: none;
+}
+
+.btn-pdf:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+}
+
+.btn-pdf:active {
+    transform: translateY(0);
+}
