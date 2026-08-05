@@ -375,22 +375,36 @@ body.theme-light .text-boasVindas h1 {
 
 .bannerSlide {
   display: flex;
-  width: 300%; /* 3 imagens x 100% */
-  animation: slideAnimation 30s infinite ease-in-out;
+  width: 100%;
+  height: 100%;
+  animation: slideAnimation 18s infinite ease-in-out;
+  will-change: transform;
 }
 
 .bannerSlide img {
-  width: 33.33%; /* Divide o espaco igualmente */
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
   max-height: 480px;
   object-fit: cover;
+  padding: 12px;
+  box-sizing: border-box;
+}
+
+.bannerSlide img.banner-no-crop {
+  object-fit: contain;
+  object-position: center;
+  background: #000;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
 }
 
 @keyframes slideAnimation {
-  5% { transform: translateX(0); }
-  25% { transform: translateX(-33%); }
-  45% { transform: translateX(-66%); }
-  85% { transform: translateX(-100%); }
-  95% { transform: translateX(-200%); }
+  0%, 28% { transform: translateX(0); }
+  33%, 61% { transform: translateX(-100%); }
+  66%, 94% { transform: translateX(-200%); }
   100% { transform: translateX(0); }
 }
 
